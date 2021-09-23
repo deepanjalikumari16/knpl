@@ -3,7 +3,66 @@
     xmlns:u="sap.ui.unified"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <MessageStrip visible="{= ${oModelView>/OfferTypeId}!==1 }" class="sapUiSmallMarginBottom" text="{i18n>Meesage1}" showIcon="true"/>
+    <VBox>
+    <items>
+                <Title titleStyle="H4" text="{i18n>Condotion1EarnedPoints}" class="sapUiMediumMarginTop" />
+                <RadioButtonGroup columns="2" select=".onRbRRDialogAddInfo" selectedIndex="{oModelView>/InputType}">
+                        <buttons>
+                            <RadioButton text="{i18n>all}"/>
+                            <RadioButton text="{i18n>SpecificPaintercount}"/>
+                        </buttons>
+                    </RadioButtonGroup>
+                    <Table  visible="{oModelControl>/addInfoEditible}" items="{path: 'oModelControl>/Table/Table8',  templateShareable:false}" width="auto" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false" busyIndicatorDelay="{oModelView>/tableBusyDelay}">
+            <headerToolbar>
+                <Toolbar>
+                    <!-- <Title text="{i18n>Slab}"/> -->
+                    <ToolbarSpacer />
+                    <Button icon="sap-icon://add" text="{i18n>Add}" tooltip="{i18n>Add}" type="Emphasized" press="onPressAddInformation('add')"/>
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <!-- <Column visible="{= ${oModelView>/InputType}===0 }"> -->
+                  <Column>
+                    <Label text="{i18n>tblColStartDate}" visible="true" required="true"/>
+                </Column>
+                <Column>
+                    <Label text="{i18n>EndDate}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>count}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>tblColAction}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem press="onListItemPress">
+                    <cells>
+                        <VBox>
+                            <Label visible="{= ${oModelControl>editable} !== true }" text="{path:'oModelControl>RequiredVolume',formatter:'.formatter.fmtCheckNull'}" />
+                            <DatePicker visible="{= ${oModelControl>editable} === true }" required="true"  displayFormat="dd/MM/yyyy" placeholder="DD/MM/YYYY"  width="100%" value="{path:'oModelControl>StartDate'}" />
+                        </VBox>
+                        <!-- <VBox visible="{= ${oModelView>/InputType}===1 }"> -->
+                         <VBox >
+                            <Label visible="{= ${oModelControl>editable} !== true  }" text="{path:'oModelControl>RequiredPoints',formatter:'.formatter.fmtCheckNull'}" />
+                            <DatePicker visible="{= ${oModelControl>editable} === true }" required="true" displayFormat="dd/MM/yyyy" placeholder="DD/MM/YYYY" width="100%" value="{path:'oModelControl>EndDate'}" />
+                        </VBox>
+                        <VBox >
+                            <Label visible="{= ${oModelControl>editable} !== true  }" text="{path:'oModelControl>RewardPoints',formatter:'.formatter.fmtCheckNull'}" />
+                            <Input visible="{= ${oModelControl>editable} === true }" type="Number" placeholder="{i18n>placeHolder3}" width="100%" value="{path:'oModelControl>AchieverCount'}" />
+                        </VBox>
+                        <HBox>
+                            <Button  icon="sap-icon://edit" tooltip="{i18n>Edit}" type="Transparent" press="onPressAddInformation"></Button>
+                            <Button  text="{i18n>Save}" tooltip="{i18n>Save}" type="Transparent" press="onPressSaveAddInfo"></Button>
+                            <Button icon="sap-icon://delete" type="Transparent" tooltip="{i18n>Delete}" press="onRemovedAddInfo"></Button>
+                        </HBox>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+                </items>
+    </VBox>
+    <!-- <MessageStrip visible="{= ${oModelView>/OfferTypeId}!==1 }" class="sapUiSmallMarginBottom" text="{i18n>Meesage1}" showIcon="true"/> -->
     <f:Form editable="true">
         <f:layout>
             <f:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false" />
@@ -18,7 +77,6 @@
                                     <RadioButton text="{i18n>All}"/>
                                     <RadioButton text="{i18n>Specific}"/>
                                 </buttons>
-
                             </RadioButtonGroup>
                         </f:fields>
                     </f:FormElement>
@@ -27,7 +85,6 @@
                             <Input valueStateText="Kindly valid digits. Max 4" enabled="{= ${oModelControl>/Rbtn/TopAll}===1 }" required="true" type="Number" placeholder="{i18n>placeHolder3}" value="{path:'oModelView>/BonusApplicableTopPainter',type:'sap.ui.model.type.String',constraints:{ search :'^[0-9]+$',minLength:1,maxLength:6}}"/>
                         </f:fields>
                     </f:FormElement>
-
                 </f:formElements>
             </f:FormContainer> -->
             <!-- <f:FormContainer title="{i18n>BonusValidity}">
@@ -47,7 +104,6 @@
                                <DatePicker change=".onBonusVaidityFrom" displayFormat="dd/MM/yyyy" dateValue="{oModelView>/PerformanceEndDate}" placeholder="DD/MM/YYYY"></DatePicker>
                             </f:fields>
                         </f:FormElement>
-                        
                     </f:formElements>
                 </f:FormContainer> -->
             <f:FormContainer title="{i18n>RedemtionCycle}" visible="{= ${oModelView>/OfferTypeId}===1}">
@@ -60,10 +116,8 @@
                                 </Select> -->
                         </f:fields>
                     </f:FormElement>
-
                 </f:formElements>
             </f:FormContainer>
         </f:formContainers>
     </f:Form>
-
 </core:FragmentDefinition>

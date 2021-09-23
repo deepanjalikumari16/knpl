@@ -297,6 +297,7 @@ sap.ui.define(
                     Criteria: "",
                     StartDate: null,
                     EndDate: null,
+                    addInfoEditible:false,
                     IsSpecificZone: false,
                     IsSpecificDivision: false,
                     IsSpecificDepot: false,
@@ -328,11 +329,14 @@ sap.ui.define(
                     OfferEarnedPointsCondition: [],
                     OfferProductValueCondition: [],
                     OfferRedemptionCycleCondition: [],
+                    OfferAchiever:[],
                     OfferConditions: {
                         IsEarnedPointsCondition: false,
                         IsProductValueCondition: false,
                         IsRedemptionCycleCondition: false
                     }
+
+                    
 
 
                 };

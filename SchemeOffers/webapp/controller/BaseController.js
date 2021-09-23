@@ -1350,6 +1350,55 @@ sap.ui.define(
                     oModel.refresh();
                 }
             },
+            onPressAddInformation: function (oEvent) {
+                var oView = this.getView();
+                var oModel = this.getView().getModel("oModelControl");
+                var oRewardDtl = oModel.getProperty("/Table/Table8");
+                if (oEvent !== "add") {
+                    var oView = this.getView();
+                    var oModel = oView.getModel("oModelControl");
+                    var oObject = oEvent
+                        .getSource()
+                        .getBindingContext("oModelControl")
+                        .getObject();
+                    oObject["editable"] = true;
+                    oModel.refresh();
+                } else {
+                    var bFlag = true;
+                    var sLength = oModel.getProperty("/Fields/RewardRationCount");
+                    if (oRewardDtl.length > 0 && oRewardDtl.length <= sLength) {
+                        for (var prop of oRewardDtl) {
+                            if (prop["editable"] == true) {
+                                bFlag = false;
+                                MessageToast.show(
+                                    "Save or delete the existing data in the table before adding a new data"
+                                );
+                                return;
+                                break;
+                            }
+                        }
+                    }
+                    if (oRewardDtl.length >= sLength) {
+                        MessageToast.show(
+                            "For the current Offer type we can add only " +
+                            sLength +
+                            " item(s)."
+                        );
+                        bFlag = false;
+                        return;
+                    }
+                    if (bFlag == true) {
+                        oRewardDtl.push({
+                            editable: true,
+                            StartDate: "",
+                            EndDate: "",
+                            AchieverCount: ""
+                        });
+                        //relvalue and editable properties are added here and will be removed in the postsave function
+                    }
+                    oModel.refresh();
+                }
+            },
             onPressSaveReward: function (oEvent) {
                 var oView = this.getView();
                 var oModel = oView.getModel("oModelControl");
@@ -1396,11 +1445,60 @@ sap.ui.define(
                 }
                 //oModel.refresh(true);
             },
+            onPressSaveAddInfo: function (oEvent) {
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelControl");
+                var oObject = oEvent
+                    .getSource()
+                    .getBindingContext("oModelControl")
+                    .getObject();
+                var oCells = oEvent.getSource().getParent().getParent().getCells();
+                var oValidator = new Validator();
+                var cFlag = oValidator.validate(oCells);
+                var bFlag = true;
+                if (!cFlag) {
+                    MessageToast.show(
+                        "Kindly Input Mandatory Fields In Proper Format To Continue."
+                    );
+                    return;
+                }
+                if (
+                    !oObject["StartDate"] &&
+                    !oObject["EndDate"] &&
+                    !oObject["AchieverCount"]
+                ) {
+                    MessageToast.show(
+                        "Kindly Enter Either start Date  Or End Date Cash or  Count."
+                    );
+                    return;
+                }
+                if (bFlag && cFlag) {
+                    oObject["editable"] = false;
+                    if (!oObject["RewardGiftName"]) {
+                        if (oObject.hasOwnProperty("RewardGiftId")) {
+                            oObject["RewardGiftId"] = null;
+                        }
+                    }
+                    oModel.refresh(true);
+                }
+                //oModel.refresh(true);
+            },
             onRbRRDialogVolume: function (oEvent) {
                 var oView = this.getView();
                 var oModel = oView.getModel("oModelControl");
                 oModel.setProperty("/Table/Table2", []);
                 oModel.setProperty("/Table/Table5", []);
+            },
+            onRbRRDialogAddInfo: function (oEvent) {
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelControl");
+                var selectedIndex = oEvent.getSource().getSelectedIndex();
+                if (selectedIndex === 0) {
+                    oModel.setProperty("/addInfoEditible", false);
+                } else {
+                    oModel.setProperty("/addInfoEditible", true);
+                }
+                oModel.setProperty("/Table/Table8", []);
             },
             onRbRRDialogVolume2: function (oEvent) {
                 var oView = this.getView();
@@ -1580,6 +1678,18 @@ sap.ui.define(
                     .getPath()
                     .split("/");
                 var oTable = oModel.getProperty("/Table/Table2");
+                oTable.splice(sPath[sPath.length - 1], 1);
+                oModel.refresh(true);
+            },
+            onRemovedAddInfo: function (oEvent) {
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelControl");
+                var sPath = oEvent
+                    .getSource()
+                    .getBindingContext("oModelControl")
+                    .getPath()
+                    .split("/");
+                var oTable = oModel.getProperty("/Table/Table8");
                 oTable.splice(sPath[sPath.length - 1], 1);
                 oModel.refresh(true);
             },
@@ -3414,6 +3524,7 @@ sap.ui.define(
                 var oModelView = oView.getModel("oModelView");
                 if (aModel2) {
                     oModelView = oView.getModel("oModelControl");
+                    oModelView.setProperty("/addInfoEditible", false);
                 }
                 for (var x of aProp) {
                     var oGetProp = oModelView.getProperty("/" + x);
