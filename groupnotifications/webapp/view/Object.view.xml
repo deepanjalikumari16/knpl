@@ -91,9 +91,9 @@
 								<Column>
 									<Text text="{i18n>colMobile}"/>
 								</Column>
-								<Column>
+								<!-- <Column>
 									<Text text="{i18n>colEmail}"/>
-								</Column>
+								</Column> -->
                                 	<!-- <Column>
 									<Text text="{i18n>colRole}"/>
 								</Column> -->
@@ -101,13 +101,13 @@
 									<Text text="{i18n>colMembershipid}"/>
 								</Column>
                                 <Column>
+									<Text text="{i18n>colZone}"/>
+								</Column>
+                                <Column>
 									<Text text="{i18n>colDevision}"/>
 								</Column>
                                 <Column>
 									<Text text="{i18n>colDepot}"/>
-								</Column>
-                                <Column>
-									<Text text="{i18n>colZone}"/>
 								</Column>
 							</columns>
 							<items>
@@ -129,6 +129,10 @@
                                     <Text text="{objectView>Admin/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
+                                                                         <FlexBox >
+                                    <Text text="{objectView>Admin/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{objectView>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
                                      <FlexBox >
                                     <Text text="{objectView>Admin/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
@@ -136,10 +140,6 @@
                                     <FlexBox >
                                     <Text text="{objectView>Admin/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    </FlexBox>
-                                     <FlexBox >
-                                    <Text text="{objectView>Admin/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    <Text text="{objectView>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
                                     </cells>
@@ -162,23 +162,23 @@
 								<Column>
 									<Text text="{i18n>colMobile}"/>
 								</Column>
-								<Column>
+								<!-- <Column>
 									<Text text="{i18n>colEmail}"/>
-								</Column>
+								</Column> -->
                                 	<!-- <Column>
 									<Text text="{i18n>colRole}"/>
 								</Column> -->
                                 <Column>
 									<Text text="{i18n>colMembershipid}"/>
 								</Column>
+                                 <Column>
+									<Text text="{i18n>colZone}"/>
+								</Column>
                                 <Column>
 									<Text text="{i18n>colDevision}"/>
 								</Column>
                                 <Column>
 									<Text text="{i18n>colDepot}"/>
-								</Column>
-                                <Column>
-									<Text text="{i18n>colZone}"/>
 								</Column>
 							</columns>
 							<items>
@@ -200,6 +200,10 @@
                                     <Text text="{objectView>Admin/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
+                                    <FlexBox >
+                                    <Text text="{objectView>Admin/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{objectView>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
                                      <FlexBox >
                                     <Text text="{objectView>Admin/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
@@ -207,10 +211,6 @@
                                     <FlexBox >
                                     <Text text="{objectView>Admin/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    </FlexBox>
-                                     <FlexBox >
-                                    <Text text="{objectView>Admin/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    <Text text="{objectView>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
 									</cells>
