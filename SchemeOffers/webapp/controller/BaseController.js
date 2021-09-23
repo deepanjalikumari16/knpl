@@ -1353,7 +1353,7 @@ sap.ui.define(
             onPressAddInformation: function (oEvent) {
                 var oView = this.getView();
                 var oModel = this.getView().getModel("oModelControl");
-                var oRewardDtl = oModel.getProperty("/Table/Table8");
+                var oRewardDt12 = oModel.getProperty("/Table/Table8");
                 if (oEvent !== "add") {
                     var oView = this.getView();
                     var oModel = oView.getModel("oModelControl");
@@ -1366,8 +1366,8 @@ sap.ui.define(
                 } else {
                     var bFlag = true;
                     var sLength = oModel.getProperty("/Fields/RewardRationCount");
-                    if (oRewardDtl.length > 0 && oRewardDtl.length <= sLength) {
-                        for (var prop of oRewardDtl) {
+                    if (oRewardDt12.length > 0 && oRewardDt12.length <= sLength) {
+                        for (var prop of oRewardDt12) {
                             if (prop["editable"] == true) {
                                 bFlag = false;
                                 MessageToast.show(
@@ -1378,7 +1378,7 @@ sap.ui.define(
                             }
                         }
                     }
-                    if (oRewardDtl.length >= sLength) {
+                    if (oRewardDt12.length >= sLength) {
                         MessageToast.show(
                             "For the current Offer type we can add only " +
                             sLength +
@@ -1388,7 +1388,7 @@ sap.ui.define(
                         return;
                     }
                     if (bFlag == true) {
-                        oRewardDtl.push({
+                        oRewardDt12.push({
                             editable: true,
                             StartDate: "",
                             EndDate: "",
