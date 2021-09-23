@@ -236,7 +236,7 @@
             </headerToolbar>
               <infoToolbar>
 					<OverflowToolbar >
-                    <Label text="{i18n>sample}"/>
+                    <Label text="{i18n>AllRewardsAllowed}"/>
                     <Select editable="false"
                         change="onSelection"
                         selectedKey="{= ${IsMultiRewardAllowed} === false ? '1' : '0' }"

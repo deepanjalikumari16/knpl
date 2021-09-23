@@ -55,11 +55,11 @@
                           <!-- <Button text="Open" id="Painters2" press="onpressfrag"/> -->
                            <MultiInput placeholder="{i18n>placeHolder1}" showValueHelp="false" enabled="true" id="Painters2" tokens="{oModelControl>/MultiCombo/Painters}">
                                 <tokens>
-                                    <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>PainterId}"/>
+                                    <Token editable="false" text="{oModelControl>PainterName}-{oModelControl>PainterMobile}" key="{oModelControl>PainterMobile}"/>
                                 </tokens>
                             </MultiInput>
 
-        <u:FileUploader  change="onFileUploadChange1"   buttonOnly="true" placeholder="{i18n>UploadNewExcel}"   typeMissmatch="onUploadMisMatch1" fileType="XLSX,xlsx" id="idFileUpload1" name="schemeImgFileUpload1"/>
+        <u:FileUploader id="idOfferFileUploader" change="onFileUploadChange1"   buttonOnly="true" placeholder="{i18n>UploadNewExcel}"   typeMissmatch="onUploadMisMatch1" fileType="text,csv" />
 
                           </VBox>
                         </f:fields>

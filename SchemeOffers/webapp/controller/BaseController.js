@@ -90,7 +90,7 @@ sap.ui.define(
                 //console.log(oEvent);
                 var oFileUploder = oEvent.getSource();
                 if (oEvent.getParameter("newValue")) {
-                    this.onpressfrag();
+                    this.onUploadPainter1();
                 }
             },
             _verifyImages: function (files, oFileUploder) {
@@ -133,6 +133,61 @@ sap.ui.define(
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("RouteLandingPage", {}, true);
             },
+               onUploadPainter1: function () {
+                    var that = this;
+                    var fU = this.getView().byId("idOfferFileUploader");
+                    var domRef = fU.getFocusDomRef();
+                    var file = domRef.files[0];
+                      var oView = that.getView();
+                var dataModel = oView.getModel("oModelControl");
+                    var settings = {
+						 url: "/KNPL_PAINTER_API/api/v2/odata.svc/UploadPainterSet(1)/$value",
+                        data: file,
+                        method: "PUT",
+                        headers: that.getView().getModel().getHeaders(),
+                        contentType: "text/csv",
+                        processData: false,
+                        statusCode: {
+                            206: function (result) {
+                                that._SuccessPainter(result, 206);
+                            },
+                            200: function (result) {
+                                that._SuccessPainter(result, 200);
+                            },
+                            202: function (result) {
+                                that._SuccessPainter(result, 202);
+                            },
+                            400: function (result) {
+                                that._SuccessPainter(result, 400);
+                            }
+                        },
+                        error: function (error) {
+                            // that._Error(error);
+                        }
+                    };
+                    $.ajax(settings);
+            },
+            _SuccessPainter: function (result, oStatus) {
+                    var that = this;
+                     var oView = that.getView();
+                    var oModelView = oView.getModel("oModelControl");
+                    oModelView.setProperty("/busy",false);
+                    if (oStatus === 200 || oStatus === 202 || oStatus === 206) {
+                        if (result.ValidPainter.length == 0) {
+                            that.showToast.call(that, "MSG_NO_RECORD_FOUND_IN_UPLOADED_FILE");
+                        } else {
+                var selectedItems = result.ValidPainter;
+                var itemModel = selectedItems.map(function (item) {
+                    return {
+                        PainterMobile: item.PainterMobile,
+                        PainterName: item.PainterName
+                    };
+                });
+                oView.getModel("oModelControl")
+                    .setProperty("/MultiCombo/Painters", itemModel);
+                        }
+                    } 
+                },
             onpressfrag: function () {
                 this._PainterMultiDialoge = this.getView().byId("Painters1");
                 var oView = this.getView();
@@ -159,14 +214,6 @@ sap.ui.define(
                         resolve();
                     }
                 }.bind(this));
-            },
-            onSelection: function (oeve) {
-                var oView = this.getView();
-                var sValue = oeve.getSource().getSelectedKey();
-                if (sValue === "0")
-                    oView.getModel("oModelView").setProperty("/IsMultiRewardAllowed", true);
-                else
-                    oView.getModel("oModelView").setProperty("/IsMultiRewardAllowed", false);
             },
             // created for painter specipic //
             onSavePaitner: function (oEvent) {
@@ -206,6 +253,14 @@ sap.ui.define(
             },
             onSavePaitnerClose: function () {
                 this._CsvDialoge.close();
+            },
+            onSelection: function (oeve) {
+                var oView = this.getView();
+                var sValue = oeve.getSource().getSelectedKey();
+                if (sValue === "0")
+                    oView.getModel("oModelView").setProperty("/IsMultiRewardAllowed", true);
+                else
+                    oView.getModel("oModelView").setProperty("/IsMultiRewardAllowed", false);
             },
             onPostSchemeData: function (oPayload, fileFlag) { },
             onBRRProductChange: function (oEvent) {
@@ -4683,8 +4738,7 @@ sap.ui.define(
                 MessageToast.show("Kindly upload a file of type .png, .jpg, .jpeg");
             },
             onUploadMisMatch1: function () {
-                MessageToast.show("Kindly upload a file of type XLSX");
-                this.onpressfrag();
+                MessageToast.show("Kindly upload a file of type text,csv");
             },
             /**
              * Adds a history entry in the FLP page history

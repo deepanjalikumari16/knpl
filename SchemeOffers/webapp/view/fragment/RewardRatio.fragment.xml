@@ -89,12 +89,12 @@
             </headerToolbar>
             <infoToolbar>
 					<OverflowToolbar >
-                    <Label text="{i18n>sample}"/>
+                    <Label text="{i18n>AllRewardsAllowed}"/>
                     	<Select
                         change="onSelection"
                         selectedKey="1"
                         >
-					<core:Item key="0" text="Yes" />
+					<core:Item  key="0" text="Yes" />
                     <core:Item key="1" text="No" />
 				</Select>
 				</OverflowToolbar>
