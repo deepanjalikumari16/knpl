@@ -121,10 +121,10 @@
                                     <Text text="{objectView>Admin/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
-									<FlexBox >
+									<!-- <FlexBox >
                                     <Text text="{objectView>Admin/Email}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/Email}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    </FlexBox>
+                                    </FlexBox> -->
                                       <FlexBox >
                                     <Text text="{objectView>Admin/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
@@ -192,10 +192,10 @@
                                     <Text text="{objectView>Admin/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
-									<FlexBox >
+									<!-- <FlexBox >
                                     <Text text="{objectView>Admin/Email}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/Email}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    </FlexBox>
+                                    </FlexBox> -->
                                      <FlexBox >
                                     <Text text="{objectView>Admin/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     <Text text="{objectView>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
